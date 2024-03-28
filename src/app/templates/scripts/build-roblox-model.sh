@@ -16,13 +16,18 @@ rm -rf temp
 mkdir -p temp
 cp -r src/ temp/
 cp -rL node_modules/ temp/
+cp "$DARKLUA_CONFIG" "temp/$DARKLUA_CONFIG"
 
 ./scripts/remove-tests.sh temp
 
-rojo sourcemap <%- rojoConfig %> -o sourcemap.json
+rojo sourcemap <%- rojoConfig %> -o temp/sourcemap.json
 
-darklua process --config "$DARKLUA_CONFIG" temp/src temp/src
-darklua process --config "$DARKLUA_CONFIG" temp/node_modules temp/node_modules
+cd temp
+
+darklua process --config "$DARKLUA_CONFIG" src src
+darklua process --config "$DARKLUA_CONFIG" node_modules node_modules
+
+cd ..
 
 cp <%- rojoConfig %> temp/
 
