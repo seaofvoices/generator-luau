@@ -19,7 +19,7 @@ exports[`creates the package.json file 1`] = `
   "name": "new-project",
   "repository": {
     "type": "git",
-    "url": "https://github.com/owner/new-project.git",
+    "url": "git+https://github.com/owner/new-project.git",
   },
   "scripts": {
     "build": "sh ./scripts/build.sh",

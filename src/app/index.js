@@ -209,8 +209,6 @@ export default class LuauGenerator extends Generator {
     this._packageGenerator.licenseName = licenseName
 
     const copyFiles = [
-      '.gitignore',
-      '.gitattributes',
       '.luaurc',
       '.luau-analyze.json',
       '.styluaignore',
@@ -219,14 +217,25 @@ export default class LuauGenerator extends Generator {
       '.vscode/extensions.json',
       '.github/pull_request_template.md',
     ]
-
     if (packageManager === 'yarn') {
       copyFiles.push('.yarnrc.yml')
+    }
+    const copyFilesRename = {
+      git_ignore: '.gitignore',
+      git_attributes: '.gitattributes',
     }
 
     copyFiles.forEach((name) => {
       this.fs.copyTpl(this.templatePath(name), this.destinationPath(name))
     })
+    Object.entries(copyFilesRename).forEach(
+      ([templateName, destinationName]) => {
+        this.fs.copyTpl(
+          this.templatePath(templateName),
+          this.destinationPath(destinationName)
+        )
+      }
+    )
 
     this.fs.writeJSON(this.destinationPath('.vscode/settings.json'), {
       'luau-lsp.require.directoryAliases': {
