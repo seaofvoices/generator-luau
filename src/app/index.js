@@ -266,7 +266,8 @@ export default class LuauGenerator extends Generator {
     if (buildSingleFile || buildRobloxModel) {
       this.fs.copyTpl(
         this.templatePath('scripts/remove-tests.sh'),
-        this.destinationPath('scripts/remove-tests.sh')
+        this.destinationPath('scripts/remove-tests.sh'),
+        { luaExtension }
       )
     }
 
