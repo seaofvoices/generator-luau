@@ -1,5 +1,6 @@
 # Changelog
 
+- fix `remove-tests.sh` script to support both `lua` and `luau` extensions ([#10](https://github.com/seaofvoices/generator-luau/pull/10))
 - move Roblox `test-place.rbxl` file into the `temp` directory ([#9](https://github.com/seaofvoices/generator-luau/pull/9))
 
 ## 0.1.1
