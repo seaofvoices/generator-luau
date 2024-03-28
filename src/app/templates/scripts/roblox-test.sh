@@ -19,6 +19,6 @@ rojo sourcemap <%- testRojoProjectFile %> -o sourcemap.json
 
 cp <%- testRojoProjectFile %> temp/
 
-rojo build temp/<%- testRojoProjectFile %> -o place.rbxl
+rojo build temp/<%- testRojoProjectFile %> -o temp/test-place.rbxl
 
-run-in-roblox --place place.rbxl --script temp/scripts/roblox-test.server.lua
+run-in-roblox --place temp/test-place.rbxl --script temp/scripts/roblox-test.server.lua
