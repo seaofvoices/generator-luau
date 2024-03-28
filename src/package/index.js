@@ -102,6 +102,8 @@ export default class LuauPackageGenerator extends Generator {
           ? `https://github.com/${this._githubOwner}/${this._name}`
           : `https://github.com/${this._githubOwner}/${projectName}`
 
+        const gitRepoUrl = `git+${repositoryBaseUrl}.git`
+
         packageBuilder.merge({
           version: '0.1.0',
           main: entryPoint,
@@ -110,10 +112,10 @@ export default class LuauPackageGenerator extends Generator {
           repository: this._isWorkspace
             ? {
                 type: 'git',
-                url: `${repositoryBaseUrl}.git`,
+                url: gitRepoUrl,
                 directory: `${this._location}/${projectName}`,
               }
-            : { type: 'git', url: `${repositoryBaseUrl}.git` },
+            : { type: 'git', url: gitRepoUrl },
           homepage: `${repositoryBaseUrl}#readme`,
         })
 
@@ -130,9 +132,16 @@ export default class LuauPackageGenerator extends Generator {
           }
         )
 
-        const copyTemplates = ['.npmignore', 'CHANGELOG.md']
-        copyTemplates.forEach((template) => {
-          this.fs.copyTpl(this.templatePath(template), getLocation(template))
+        const copyFiles = {
+          'CHANGELOG.md': 'CHANGELOG.md',
+          npm_ignore: '.npmignore',
+        }
+
+        Object.entries(copyFiles).forEach(([templateName, destinationName]) => {
+          this.fs.copyTpl(
+            this.templatePath(templateName),
+            this.destinationPath(destinationName)
+          )
         })
 
         if (useReact) {
