@@ -1,5 +1,7 @@
 # Changelog
 
+- move Roblox `test-place.rbxl` file into the `temp` directory ([#9](https://github.com/seaofvoices/generator-luau/pull/9))
+
 ## 0.1.1
 
 - rename gitignore, gitattributes and npmignore templates to fix missing template issue ([#1](https://github.com/seaofvoices/generator-luau/pull/1))
