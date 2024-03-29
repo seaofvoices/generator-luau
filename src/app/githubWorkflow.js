@@ -26,6 +26,7 @@ const buildProjectSetup = ({ packageManager }) => {
     uses: 'actions/setup-node@v3',
     with: {
       'node-version': 'latest',
+      'registry-url': 'https://registry.npmjs.org',
       cache: packageManager,
       'cache-dependency-path':
         packageManager === 'yarn' ? 'yarn.lock' : 'package-lock.json',

@@ -13,6 +13,22 @@ import { formatYaml } from './formatYaml'
 
 const LICENSE_FILE_NAME = 'LICENSE.txt'
 
+const extractFileNameInfo = (name, extensions) => {
+  if (extensions.some((extension) => name.endsWith(`.${extension}`))) {
+    const index = name.lastIndexOf('.')
+    return {
+      name: name.slice(0, index),
+      extension: name.slice(index + 1),
+      full: name,
+    }
+  }
+  return {
+    name,
+    extension: extensions[0],
+    full: `${name}.${extensions[0]}`,
+  }
+}
+
 export default class LuauGenerator extends Generator {
   constructor(args, opts) {
     super(args, opts, {
@@ -208,6 +224,15 @@ export default class LuauGenerator extends Generator {
     const licenseName = this._licenseGenerator.props.license
     this._packageGenerator.licenseName = licenseName
 
+    const robloxModelNameInfo =
+      robloxModelName && extractFileNameInfo(robloxModelName, ['rbxm', 'rbxmx'])
+    const singleFileNameInfo =
+      singleFileName &&
+      extractFileNameInfo(singleFileName, [
+        luaExtension,
+        luaExtension === 'lua' ? 'luau' : 'lua',
+      ])
+
     const copyFiles = [
       '.luaurc',
       '.luau-analyze.json',
@@ -282,7 +307,7 @@ export default class LuauGenerator extends Generator {
         })
       )
 
-      const bundleName = `${singleFileName}.${luaExtension}`
+      const bundleName = singleFileNameInfo.full
 
       this.fs.copyTpl(
         this.templatePath('scripts/build-single-file.sh'),
@@ -313,7 +338,7 @@ export default class LuauGenerator extends Generator {
           `scripts/build-single-file.sh ${darkluaDevConfigPath} build/debug/${bundleName}`
         )
         releaseArtifacts.push({
-          name: bundleName,
+          name: `${singleFileNameInfo.name}-dev.${singleFileNameInfo.extension}`,
           path: `build/debug/${bundleName}`,
           assetType: 'text/plain',
         })
@@ -344,11 +369,11 @@ export default class LuauGenerator extends Generator {
         { rojoConfig: modelProjectJson }
       )
       buildScripts.push(
-        `scripts/build-roblox-model.sh ${darkluaConfigPath} build/${robloxModelName}.rbxm`
+        `scripts/build-roblox-model.sh ${darkluaConfigPath} build/${robloxModelNameInfo.full}`
       )
       releaseArtifacts.push({
-        name: `${robloxModelName}.rbxm`,
-        path: `build/${robloxModelName}.rbxm`,
+        name: `${robloxModelNameInfo.full}`,
+        path: `build/${robloxModelNameInfo.full}`,
         assetType: 'application/octet-stream',
       })
 
@@ -363,11 +388,11 @@ export default class LuauGenerator extends Generator {
         )
 
         buildScripts.push(
-          `scripts/build-roblox-model.sh ${darkluaDevConfigPath} build/debug/${robloxModelName}.rbxm`
+          `scripts/build-roblox-model.sh ${darkluaDevConfigPath} build/debug/${robloxModelNameInfo.full}`
         )
         releaseArtifacts.push({
-          name: `${robloxModelName}-dev.rbxm`,
-          path: `build/debug/${robloxModelName}.rbxm`,
+          name: `${robloxModelNameInfo.name}-dev.${robloxModelNameInfo.extension}`,
+          path: `build/debug/${robloxModelNameInfo.full}`,
           assetType: 'application/octet-stream',
         })
       }
@@ -454,9 +479,6 @@ export default class LuauGenerator extends Generator {
             ].join('')
           )
         )
-        // replicatedStorageDefinition.node_modules['jest.config'] = {
-        //   $path: `./${jestConfigPath}`,
-        // }
       } else {
         jestRoots.push('ReplicatedStorage:FindFirstChild("TestTarget")')
         replicatedStorageDefinition.TestTarget = {
