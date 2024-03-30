@@ -1,5 +1,6 @@
 # Changelog
 
+- remove the scope prefix from package names in generated READMEs and the built artifacts ([#13](https://github.com/seaofvoices/generator-luau/pull/13))
 - fix duplicated extensions in build artifacts file names ([#12](https://github.com/seaofvoices/generator-luau/pull/12))
 - fix `build-roblox-asset.sh` script ([#11](https://github.com/seaofvoices/generator-luau/pull/11))
 - fix `remove-tests.sh` script to support both `lua` and `luau` extensions ([#10](https://github.com/seaofvoices/generator-luau/pull/10))
