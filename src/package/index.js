@@ -3,12 +3,13 @@ import path from 'path'
 import { format as formatPackageJson } from 'prettier-package-json'
 import PackageJsonBuilder from '../PackageJsonBuilder.js'
 import { createDependencies } from '../createDependencies.js'
+import { extractPackageName } from '../extractPackageName.js'
 
 export default class LuauPackageGenerator extends Generator {
   constructor(args, opts) {
     super(args, opts)
 
-    this._name = opts.name
+    this._name = extractPackageName(opts.name)
     this._authorName = opts.authorName
     this._authorEmail = opts.authorEmail
     this._githubOwner = opts.githubOwner
@@ -25,7 +26,7 @@ export default class LuauPackageGenerator extends Generator {
   async prompting() {
     this._projects = [
       await this._setupProject(
-        this._name,
+        this._name.full,
         path.basename(this.destinationRoot())
       ),
     ]
@@ -86,23 +87,29 @@ export default class LuauPackageGenerator extends Generator {
 
     await Promise.all(
       this._projects.map(async ({ projectName, useReact }) => {
+        const projectNameInfo = extractPackageName(projectName)
+
         const getLocation = this._location
           ? (...subpath) =>
-              this.destinationPath(this._location, projectName, ...subpath)
+              this.destinationPath(
+                this._location,
+                projectNameInfo.name,
+                ...subpath
+              )
           : (...subpath) => this.destinationPath(...subpath)
 
         const packageJsonLocation = getLocation('package.json')
 
         const packageBuilder = this.fs.exists(packageJsonLocation)
           ? PackageJsonBuilder.from(this.fs.readJSON(packageJsonLocation))
-          : new PackageJsonBuilder(projectName)
+          : new PackageJsonBuilder(projectNameInfo.full)
 
-        const entryPoint = `src/init.${luaExtension}`
         const repositoryBaseUrl = this._isWorkspace
-          ? `https://github.com/${this._githubOwner}/${this._name}`
-          : `https://github.com/${this._githubOwner}/${projectName}`
+          ? `https://github.com/${this._githubOwner}/${this._name.name}`
+          : `https://github.com/${this._githubOwner}/${projectNameInfo.name}`
 
         const gitRepoUrl = `git+${repositoryBaseUrl}.git`
+        const entryPoint = `src/init.${luaExtension}`
 
         packageBuilder.merge({
           version: '0.1.0',
@@ -113,7 +120,7 @@ export default class LuauPackageGenerator extends Generator {
             ? {
                 type: 'git',
                 url: gitRepoUrl,
-                directory: `${this._location}/${projectName}`,
+                directory: `${this._location}/${projectNameInfo.name}`,
               }
             : { type: 'git', url: gitRepoUrl },
           homepage: `${repositoryBaseUrl}#readme`,
@@ -125,9 +132,12 @@ export default class LuauPackageGenerator extends Generator {
           this.templatePath('README.md'),
           getLocation('README.md'),
           {
-            projectName,
+            projectName: projectNameInfo.name,
+            fullProjectName: projectNameInfo.full,
+            repoName: this._name.name,
             licenseName,
-            licensePath: `${this._location ? '../../' : ''}LICENSE.txt`,
+            licenseFileName: this._licenseFileName,
+            licensePath: `${this._location ? '../../' : ''}${this._licenseFileName}`,
             githubOwner: this._githubOwner,
           }
         )

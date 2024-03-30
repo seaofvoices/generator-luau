@@ -3,6 +3,7 @@ import path from 'path'
 import { format as formatPackageJson } from 'prettier-package-json'
 import { createDependencies } from '../createDependencies'
 import PackageJsonBuilder from '../PackageJsonBuilder'
+import { extractPackageName } from '../extractPackageName'
 import LuauPackageGenerator from '../package/index'
 import ForemanGenerator from '../foreman/index'
 import GeneratorLicense from '../license/index'
@@ -137,7 +138,10 @@ export default class LuauGenerator extends Generator {
         type: 'input',
         name: 'singleFileName',
         message: 'Specify a name for the bundled file:',
-        default: (results) => `${results.projectName}.${results.luaExtension}`,
+        default: (results) => {
+          const nameInfo = extractPackageName(results.projectName)
+          return `${nameInfo.name}.${results.luaExtension}`
+        },
         when: (results) => results.buildSingleFile,
       },
       {
@@ -152,7 +156,10 @@ export default class LuauGenerator extends Generator {
         type: 'input',
         name: 'robloxModelName',
         message: 'Specify a name for the Roblox model file:',
-        default: (results) => results.projectName,
+        default: (results) => {
+          const nameInfo = extractPackageName(results.projectName)
+          return nameInfo.name
+        },
         when: (results) => results.buildRobloxModel,
       },
       {
@@ -220,6 +227,7 @@ export default class LuauGenerator extends Generator {
       robloxModelName,
       buildDebugAssets,
     } = this.promptResults
+    const projectNameInfo = extractPackageName(projectName)
     const isRobloxEnv = luaEnvironment === 'roblox'
     const licenseName = this._licenseGenerator.props.license
     this._packageGenerator.licenseName = licenseName
@@ -348,7 +356,7 @@ export default class LuauGenerator extends Generator {
     if (buildRobloxModel) {
       const modelProjectJson = 'model.project.json'
       this.fs.writeJSON(this.destinationPath(modelProjectJson), {
-        name: projectName,
+        name: projectNameInfo.name,
         tree: {
           $path: 'src',
           node_modules: { $path: 'node_modules' },
