@@ -6,7 +6,10 @@ DARKLUA_CONFIG="<%- darkluaConfig %>"
 
 if [ ! -d node_modules ]; then
     rm -rf temp
-    yarn install
+    <%- packageManager %> install
+fi
+if [ ! -d node_modules/.luau-aliases ]; then
+    <%- packageManager %> prepare
 fi
 
 if [ -d "temp" ]; then

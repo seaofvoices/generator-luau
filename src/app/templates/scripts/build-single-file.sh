@@ -6,10 +6,10 @@ DARKLUA_CONFIG=$1
 BUILD_OUTPUT=$2
 
 if [ ! -d node_modules ]; then
-    yarn install
+    <%- packageManager %> install
 fi
 if [ ! -d node_modules/.luau-aliases ]; then
-    yarn prepare
+    <%- packageManager %> run prepare
 fi
 
 rm -rf temp

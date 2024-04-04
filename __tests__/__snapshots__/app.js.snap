@@ -1,6 +1,43 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`creates the package.json file 1`] = `
+exports[`using npm creates the package.json file 1`] = `
+{
+  "author": "Author Name <author@write.com>",
+  "dependencies": {},
+  "description": "",
+  "devDependencies": {
+    "@jsdotlua/jest": Any<String>,
+    "@jsdotlua/jest-globals": Any<String>,
+    "npmluau": Any<String>,
+  },
+  "homepage": "https://github.com/owner/new-project#readme",
+  "keywords": [
+    "luau",
+  ],
+  "license": "MIT",
+  "main": "src/init.lua",
+  "name": "new-project",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/owner/new-project.git",
+  },
+  "scripts": {
+    "build": "sh ./scripts/build.sh",
+    "clean": "rm -rf node_modules build temp",
+    "format": "stylua .",
+    "lint": "sh ./scripts/analyze.sh && selene src",
+    "lint:luau": "sh ./scripts/analyze.sh",
+    "lint:selene": "selene src",
+    "prepare": "npmluau",
+    "style-check": "stylua . --check",
+    "test:roblox": "sh ./scripts/roblox-test.sh",
+    "verify-pack": "npm pack --dry-run",
+  },
+  "version": "0.1.0",
+}
+`;
+
+exports[`using yarn creates the package.json file 1`] = `
 {
   "author": "Author Name <author@write.com>",
   "dependencies": {},
