@@ -320,7 +320,7 @@ export default class LuauGenerator extends Generator {
       this.fs.copyTpl(
         this.templatePath('scripts/build-single-file.sh'),
         this.destinationPath('scripts/build-single-file.sh'),
-        { entryPoint: `src/init.${luaExtension}` }
+        { packageManager, entryPoint: `src/init.${luaExtension}` }
       )
 
       buildScripts.push(
@@ -374,7 +374,7 @@ export default class LuauGenerator extends Generator {
       this.fs.copyTpl(
         this.templatePath('scripts/build-roblox-model.sh'),
         this.destinationPath('scripts/build-roblox-model.sh'),
-        { rojoConfig: modelProjectJson }
+        { packageManager, rojoConfig: modelProjectJson }
       )
       buildScripts.push(
         `scripts/build-roblox-model.sh ${darkluaConfigPath} build/${robloxModelNameInfo.full}`
@@ -528,6 +528,7 @@ export default class LuauGenerator extends Generator {
         this.templatePath('scripts/roblox-test.sh'),
         this.destinationPath('scripts/roblox-test.sh'),
         {
+          packageManager,
           testRojoProjectFile,
           darkluaConfig,
           folders,
@@ -594,7 +595,7 @@ export default class LuauGenerator extends Generator {
       this.spawnSync('yarn', ['set', 'version', 'stable'], execOptions)
     }
     this.spawnSync(packageManager, ['install'], execOptions)
-    this.spawnSync(packageManager, ['prepare'], execOptions)
+    this.spawnSync(packageManager, ['run', 'prepare'], execOptions)
     this.spawnSync('stylua', ['.'], execOptions)
   }
 }

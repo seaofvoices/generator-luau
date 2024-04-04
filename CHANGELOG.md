@@ -1,5 +1,7 @@
 # Changelog
 
+- fix prepare command and usages of yarn when npm is selected ([#16](https://github.com/seaofvoices/generator-luau/pull/16))
+
 ## 0.1.2
 
 - remove the scope prefix from package names in generated READMEs and the built artifacts ([#13](https://github.com/seaofvoices/generator-luau/pull/13))
