@@ -407,7 +407,8 @@ export default class LuauGenerator extends Generator {
       }
     }
 
-    if (buildScripts.length > 0) {
+    const hasBuildScript = buildScripts.length > 0
+    if (hasBuildScript) {
       this.fs.copyTpl(
         this.templatePath('scripts/build.sh'),
         this.destinationPath('scripts/build.sh'),
@@ -458,7 +459,6 @@ export default class LuauGenerator extends Generator {
       'lint:selene': `selene ${mainFolderName}`,
       format: 'stylua .',
       'style-check': 'stylua . --check',
-      build: 'sh ./scripts/build.sh',
 
       'verify-pack':
         packageManager === 'yarn'
@@ -466,6 +466,12 @@ export default class LuauGenerator extends Generator {
           : 'npm pack --dry-run',
       clean: 'rm -rf node_modules build' + (isRobloxEnv ? ' temp' : ''),
     })
+
+    if (hasBuildScript) {
+      packageBuilder.addScripts({
+        build: 'sh ./scripts/build.sh',
+      })
+    }
 
     if (useJest) {
       const testRojoProjectFile = 'test-place.project.json'
