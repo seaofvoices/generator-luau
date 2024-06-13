@@ -73,6 +73,5 @@
     "trailingComma": "es5",
     "semi": false,
     "singleQuote": true
-  },
-  "packageManager": "yarn@4.1.1"
+  }
 }
