@@ -6,7 +6,6 @@ DARKLUA_CONFIG=$1
 BUILD_OUTPUT=$2
 
 if [ ! -d node_modules ]; then
-    rm -rf temp
     <%- packageManager %> install
 fi
 if [ ! -d node_modules/.luau-aliases ]; then
@@ -36,3 +35,5 @@ rm -f "$BUILD_OUTPUT"
 mkdir -p $(dirname "$BUILD_OUTPUT")
 
 rojo build temp/<%- rojoConfig %> -o "$BUILD_OUTPUT"
+
+rm -rf temp

@@ -23,3 +23,5 @@ rm -f "$BUILD_OUTPUT"
 mkdir -p $(dirname "$BUILD_OUTPUT")
 
 darklua process --config "$DARKLUA_CONFIG" temp/<%- entryPoint %> "$BUILD_OUTPUT"
+
+rm -rf temp
