@@ -280,11 +280,6 @@ export default class LuauGenerator extends Generator {
       'luau-lsp.types.roblox': isRobloxEnv,
     })
 
-    this.fs.write(
-      this.destinationPath('.github/workflows/test.yml'),
-      await formatYaml(buildTestWorkflow({ packageManager }))
-    )
-
     const mainFolderName = useWorkspaces ? 'packages' : 'src'
 
     this.fs.copyTpl(
@@ -407,14 +402,20 @@ export default class LuauGenerator extends Generator {
       }
     }
 
-    const hasBuildScript = buildScripts.length > 0
-    if (hasBuildScript) {
+    const hasBuildScripts = buildScripts.length > 0
+
+    if (hasBuildScripts) {
       this.fs.copyTpl(
         this.templatePath('scripts/build.sh'),
         this.destinationPath('scripts/build.sh'),
         { scripts: buildScripts.join('\n') }
       )
     }
+
+    this.fs.write(
+      this.destinationPath('.github/workflows/test.yml'),
+      await formatYaml(buildTestWorkflow({ packageManager, hasBuildScripts }))
+    )
 
     this.fs.write(
       this.destinationPath('.github/workflows/release.yml'),
@@ -467,7 +468,7 @@ export default class LuauGenerator extends Generator {
       clean: 'rm -rf node_modules build' + (isRobloxEnv ? ' temp' : ''),
     })
 
-    if (hasBuildScript) {
+    if (hasBuildScripts) {
       packageBuilder.addScripts({
         build: 'sh ./scripts/build.sh',
       })
