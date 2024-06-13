@@ -1,6 +1,7 @@
 # Changelog
 
 - disable luau-lsp automatic Rojo sourcemap generation setting ([#25](https://github.com/seaofvoices/generator-luau/pull/25))
+- add GitHub actions and selene to recommended VSCode extensions ([#26](https://github.com/seaofvoices/generator-luau/pull/26))
 
 ## 0.1.3
 
