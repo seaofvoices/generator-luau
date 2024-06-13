@@ -22,7 +22,6 @@ exports[`using npm creates the package.json file 1`] = `
     "url": "git+https://github.com/owner/new-project.git",
   },
   "scripts": {
-    "build": "sh ./scripts/build.sh",
     "clean": "rm -rf node_modules build temp",
     "format": "stylua .",
     "lint": "sh ./scripts/analyze.sh && selene src",
@@ -59,7 +58,6 @@ exports[`using yarn creates the package.json file 1`] = `
     "url": "git+https://github.com/owner/new-project.git",
   },
   "scripts": {
-    "build": "sh ./scripts/build.sh",
     "clean": "rm -rf node_modules build temp",
     "format": "stylua .",
     "lint": "sh ./scripts/analyze.sh && selene src",
