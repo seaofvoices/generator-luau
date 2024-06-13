@@ -274,6 +274,7 @@ export default class LuauGenerator extends Generator {
       'luau-lsp.require.directoryAliases': {
         '@pkg': 'node_modules/.luau-aliases',
       },
+      'luau-lsp.sourcemap.autogenerate': false,
       'luau-lsp.require.mode': 'relativeToFile',
       'luau-lsp.completion.imports.requireStyle': 'alwaysRelative',
       'luau-lsp.types.roblox': isRobloxEnv,
