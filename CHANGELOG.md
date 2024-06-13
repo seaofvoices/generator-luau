@@ -1,5 +1,7 @@
 # Changelog
 
+- disable luau-lsp automatic Rojo sourcemap generation setting ([#25](https://github.com/seaofvoices/generator-luau/pull/25))
+
 ## 0.1.3
 
 - fix prepare command and usages of yarn when npm is selected ([#16](https://github.com/seaofvoices/generator-luau/pull/16))
