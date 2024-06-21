@@ -1,5 +1,7 @@
 # Changelog
 
+## 0.1.4
+
 - fix `build` script usage in workflows where no artifacts are actually built (in both the `test` and `release` workflows) ([#28](https://github.com/seaofvoices/generator-luau/pull/28))
 - remove `temp` directory after build scripts are done ([#27](https://github.com/seaofvoices/generator-luau/pull/27))
 - add GitHub actions and selene to recommended VSCode extensions ([#26](https://github.com/seaofvoices/generator-luau/pull/26))
