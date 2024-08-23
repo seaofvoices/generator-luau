@@ -21,100 +21,101 @@ const getFileContent = (context, fileName) => {
 
 const projectName = 'new-project'
 let spawnMock = jest.fn()
+let answers = {}
+
+const setupContext = async () =>
+  await helpers
+    .run(join(dirname(fileURLToPath(import.meta.url)), '../generators/app'))
+    .withArguments([projectName])
+    .withAnswers(answers)
+    .withSpawnMock(spawnMock)
 
 beforeEach(async () => {
   spawnMock = jest.fn()
+  answers = {
+    name: 'Author Name',
+    authorName: 'Author Name',
+    authorEmail: 'author@write.com',
+    githubOwner: 'owner',
+    codeOfConductContact: 'contact@example.com',
+    tools: [],
+    website: '',
+  }
 })
 
 describe.each(['npm', 'yarn'])('using %s', (packageManager) => {
-  describe('general setup', () => {
-    let context = null
+  beforeEach(() => {
+    answers.packageManager = packageManager
+  })
 
-    beforeEach(async () => {
-      context = await helpers
-        .run(join(dirname(fileURLToPath(import.meta.url)), '../generators/app'))
-        .withArguments([projectName])
-        .withAnswers({
-          packageManager,
-          name: 'Author Name',
-          authorName: 'Author Name',
-          authorEmail: 'author@write.com',
-          githubOwner: 'owner',
-          codeOfConductContact: 'contact@example.com',
-          tools: [],
-          website: '',
-        })
-        .withSpawnMock(spawnMock)
-    })
-
-    it('creates the package.json file', async () => {
-      expect(
-        JSON.parse(getFileContent(context, 'package.json'))
-      ).toMatchSnapshot({
+  it('creates the package.json file', async () => {
+    const context = await setupContext()
+    expect(JSON.parse(getFileContent(context, 'package.json'))).toMatchSnapshot(
+      {
         devDependencies: {
           '@jsdotlua/jest': expect.any(String),
           '@jsdotlua/jest-globals': expect.any(String),
           npmluau: expect.any(String),
         },
-      })
-    })
-
-    it('runs install and prepare command', async () => {
-      if (packageManager === 'yarn') {
-        expect(spawnMock).toHaveBeenCalledWith(
-          'spawnSync',
-          packageManager,
-          ['set', 'version', 'stable'],
-          expect.any(Object)
-        )
       }
-      expect(spawnMock).toHaveBeenCalledWith(
-        'spawnSync',
-        packageManager,
-        ['install'],
-        expect.any(Object)
-      )
-      expect(spawnMock).toHaveBeenCalledWith(
-        'spawnSync',
-        packageManager,
-        ['run', 'prepare'],
-        expect.any(Object)
-      )
-    })
+    )
+  })
 
-    it('creates generic repo files', async () => {
-      expect(getFileContent(context, 'README.md')).not.toBe('')
-      expect(getFileContent(context, 'CODE_OF_CONDUCT.md')).not.toBe('')
-      expect(getFileContent(context, '.gitignore')).not.toBe('')
-      expect(getFileContent(context, '.gitattributes')).not.toBe('')
-      expect(getFileContent(context, '.npmignore')).not.toBe('')
-    })
+  it('runs install and prepare command', async () => {
+    const context = await setupContext()
+    if (packageManager === 'yarn') {
+      expect(spawnMock).toHaveBeenCalledWith(
+        'spawnSync',
+        packageManager,
+        ['set', 'version', 'stable'],
+        expect.any(Object)
+      )
+    }
+    expect(spawnMock).toHaveBeenCalledWith(
+      'spawnSync',
+      packageManager,
+      ['install'],
+      expect.any(Object)
+    )
+    expect(spawnMock).toHaveBeenCalledWith(
+      'spawnSync',
+      packageManager,
+      ['run', 'prepare'],
+      expect.any(Object)
+    )
+  })
+
+  it('creates generic repo files', async () => {
+    const context = await setupContext()
+    expect(getFileContent(context, 'README.md')).not.toBe('')
+    expect(getFileContent(context, 'CODE_OF_CONDUCT.md')).not.toBe('')
+    expect(getFileContent(context, '.gitignore')).not.toBe('')
+    expect(getFileContent(context, '.gitattributes')).not.toBe('')
+    expect(getFileContent(context, '.npmignore')).not.toBe('')
   })
 
   describe('Roblox environment', () => {
-    let context = null
-
     beforeEach(async () => {
-      context = await helpers
-        .run(join(dirname(fileURLToPath(import.meta.url)), '../generators/app'))
-        .withArguments([projectName])
-        .withAnswers({
-          packageManager,
-          name: 'Author Name',
-          authorName: 'Author Name',
-          authorEmail: 'author@write.com',
-          githubOwner: 'owner',
-          codeOfConductContact: 'contact@example.com',
-          tools: [],
-          website: '',
-          luaEnvironment: 'roblox',
-          buildRobloxModel: true,
-        })
-        .withSpawnMock(spawnMock)
+      answers.luaEnvironment = 'roblox'
+      answers.buildRobloxModel = true
     })
 
     it('creates a script to build a Roblox model', async () => {
+      const context = await setupContext()
       expect(getFileContent(context, 'build-roblox-model.sh')).toMatchSnapshot()
+    })
+
+    describe.each(['lua', 'luau'])('using %s', (luaExtension) => {
+      beforeEach(async () => {
+        answers.luaExtension = luaExtension
+      })
+
+      it('creates an entry point to run the test in Roblox studio', async () => {
+        const context = await setupContext()
+        expect(
+          getFileContent(context, `roblox-test.server.${luaExtension}`)
+        ).not.toBe('')
+      })
     })
   })
 })
