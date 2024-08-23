@@ -39,7 +39,7 @@ rm -rf temp
 "
 `;
 
-exports[`using npm general setup creates the package.json file 1`] = `
+exports[`using npm creates the package.json file 1`] = `
 {
   "author": "Author Name <author@write.com>",
   "dependencies": {},
@@ -114,7 +114,7 @@ rm -rf temp
 "
 `;
 
-exports[`using yarn general setup creates the package.json file 1`] = `
+exports[`using yarn creates the package.json file 1`] = `
 {
   "author": "Author Name <author@write.com>",
   "dependencies": {},

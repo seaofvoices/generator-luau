@@ -548,6 +548,7 @@ export default class LuauGenerator extends Generator {
           testRojoProjectFile,
           darkluaConfig,
           folders,
+          luaExtension,
         }
       )
       this.fs.copyTpl(

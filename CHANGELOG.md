@@ -1,5 +1,6 @@
 # Changelog
 
+- fix incorrect extension name used in `roblox-test.sh` script ([#33](https://github.com/seaofvoices/generator-luau/pull/33))
 - avoid including dev-dependencies when building Roblox models ([#32](https://github.com/seaofvoices/generator-luau/pull/32))
 
 ## 0.1.4
