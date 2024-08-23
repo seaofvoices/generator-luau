@@ -5,12 +5,7 @@ set -e
 DARKLUA_CONFIG=$1
 BUILD_OUTPUT=$2
 
-if [ ! -d node_modules ]; then
-    <%- packageManager %> install
-fi
-if [ ! -d node_modules/.luau-aliases ]; then
-    <%- packageManager %> run prepare
-fi
+<%- installProduction %>
 
 rm -rf temp
 mkdir -p temp

@@ -367,10 +367,18 @@ export default class LuauGenerator extends Generator {
         })
       )
 
+      const INSTALL_PRODUCTION = {
+        yarn: ['yarn workspaces focus --production', 'yarn dlx npmluau'],
+        npm: ['npm install --omit dev', 'npx npmluau'],
+      }
+
       this.fs.copyTpl(
         this.templatePath('scripts/build-roblox-model.sh'),
         this.destinationPath('scripts/build-roblox-model.sh'),
-        { packageManager, rojoConfig: modelProjectJson }
+        {
+          installProduction: INSTALL_PRODUCTION[packageManager].join('\n'),
+          rojoConfig: modelProjectJson,
+        }
       )
       buildScripts.push(
         `scripts/build-roblox-model.sh ${darkluaConfigPath} build/${robloxModelNameInfo.full}`
