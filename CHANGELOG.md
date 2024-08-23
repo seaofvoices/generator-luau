@@ -1,5 +1,7 @@
 # Changelog
 
+- avoid including dev-dependencies when building Roblox models ([#32](https://github.com/seaofvoices/generator-luau/pull/32))
+
 ## 0.1.4
 
 - fix `build` script usage in workflows where no artifacts are actually built (in both the `test` and `release` workflows) ([#28](https://github.com/seaofvoices/generator-luau/pull/28))
