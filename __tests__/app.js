@@ -62,7 +62,7 @@ describe.each(['npm', 'yarn'])('using %s', (packageManager) => {
   })
 
   it('runs install and prepare command', async () => {
-    const context = await setupContext()
+    await setupContext()
     if (packageManager === 'yarn') {
       expect(spawnMock).toHaveBeenCalledWith(
         'spawnSync',
