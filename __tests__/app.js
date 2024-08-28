@@ -1,36 +1,17 @@
-import { join, dirname, basename } from 'path'
-import { fileURLToPath } from 'url'
-import helpers from 'yeoman-test'
 import { expect, it, describe, jest, beforeEach } from '@jest/globals'
-
-const getFileContent = (context, fileName) => {
-  const snapshot = context.getSnapshot(
-    (file) => file.relativePath && basename(file.relativePath) === fileName
-  )
-
-  const snapshotValues = Object.values(snapshot)
-  if (snapshotValues.length === 0) {
-    throw Error(`Unable to find file ${fileName}`)
-  }
-  if (snapshotValues.length > 1) {
-    throw Error(`Found multiple file for ${fileName}`)
-  }
-
-  return snapshotValues[0].contents
-}
+import { getFileContent, setupGenerator, usePolly } from './utils'
 
 const projectName = 'new-project'
 let spawnMock = jest.fn()
 let answers = {}
 
 const setupContext = async () =>
-  await helpers
-    .run(join(dirname(fileURLToPath(import.meta.url)), '../generators/app'))
+  await setupGenerator('app')
     .withArguments([projectName])
     .withAnswers(answers)
     .withSpawnMock(spawnMock)
 
-beforeEach(async () => {
+beforeEach(() => {
   spawnMock = jest.fn()
   answers = {
     name: 'Author Name',
@@ -41,6 +22,8 @@ beforeEach(async () => {
     tools: [],
     website: '',
   }
+
+  usePolly('all-tools-requests')
 })
 
 describe.each(['npm', 'yarn'])('using %s', (packageManager) => {
@@ -100,10 +83,13 @@ describe.each(['npm', 'yarn'])('using %s', (packageManager) => {
       answers.buildRobloxModel = true
     })
 
-    it('creates a script to build a Roblox model', async () => {
-      const context = await setupContext()
-      expect(getFileContent(context, 'build-roblox-model.sh')).toMatchSnapshot()
-    })
+    it.each(['build-roblox-model.sh', '.luau-analyze.json', '.luaurc'])(
+      'creates a %s file',
+      async (fileName) => {
+        const context = await setupContext()
+        expect(getFileContent(context, fileName)).toMatchSnapshot()
+      }
+    )
 
     describe.each(['lua', 'luau'])('using %s', (luaExtension) => {
       beforeEach(async () => {
@@ -117,5 +103,19 @@ describe.each(['npm', 'yarn'])('using %s', (packageManager) => {
         ).not.toBe('')
       })
     })
+  })
+
+  describe('Lune environment', () => {
+    beforeEach(async () => {
+      answers.luaEnvironment = 'lune'
+    })
+
+    it.each(['.luau-analyze.json', '.luaurc'])(
+      'creates a %s file',
+      async (fileName) => {
+        const context = await setupContext()
+        expect(getFileContent(context, fileName)).toMatchSnapshot()
+      }
+    )
   })
 })

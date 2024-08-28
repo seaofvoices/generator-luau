@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`all tools creates a foreman.toml 1`] = `
+"[tools]
+darklua = { github = "seaofvoices/darklua", version = "=0.13.1"}
+luau-lsp = { github = "JohnnyMorganz/luau-lsp", version = "=1.32.3"}
+lune = { github = "lune-org/lune", version = "=0.8.8"}
+mantle = { github = "blake-mealey/mantle", version = "=0.11.16"}
+rojo = { github = "rojo-rbx/rojo", version = "=7.4.4"}
+run-in-roblox = { github = "rojo-rbx/run-in-roblox", version = "=0.3.0"}
+selene = { github = "Kampfkarren/selene", version = "=0.27.1"}
+stylua = { github = "JohnnyMorganz/StyLua", version = "=0.20.0"}
+tarmac = { github = "rojo-rbx/tarmac", version = "=0.7.5"}
+"
+`;
+
+exports[`default tools creates a foreman.toml 1`] = `
+"[tools]
+darklua = { github = "seaofvoices/darklua", version = "=0.13.1"}
+luau-lsp = { github = "JohnnyMorganz/luau-lsp", version = "=1.32.3"}
+selene = { github = "Kampfkarren/selene", version = "=0.27.1"}
+stylua = { github = "JohnnyMorganz/StyLua", version = "=0.20.0"}
+"
+`;
