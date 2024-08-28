@@ -1,6 +1,6 @@
 {
   "name": "generator-luau",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "A Yeoman generator for Luau projects",
   "repository": {
     "type": "git",

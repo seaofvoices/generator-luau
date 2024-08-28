@@ -1,5 +1,7 @@
 # Changelog
 
+## 0.1.5
+
 - add lune package aliases to configuration files ([#35](https://github.com/seaofvoices/generator-luau/pull/35))
 - fix luau-lsp analysis script to ignore node_modules ([#30](https://github.com/seaofvoices/generator-luau/pull/30))
 - fix incorrect extension name used in `roblox-test.sh` script ([#33](https://github.com/seaofvoices/generator-luau/pull/33))
