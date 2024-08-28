@@ -85,7 +85,12 @@ class ForemanGenerator extends Generator {
             })
 
           if (version === null) {
-            return null
+            return {
+              name,
+              owner,
+              repo,
+              version: '*',
+            }
           }
 
           return {
@@ -101,6 +106,12 @@ class ForemanGenerator extends Generator {
     this._foremanToolsVersions.sort((a, b) =>
       a.name < b.name ? -1 : a.name > b.name ? 1 : 0
     )
+
+    this.toolVersions = Object.fromEntries(
+      this._foremanToolsVersions
+        .filter(({ version }) => version !== '*')
+        .map(({ name, version }) => [name, version])
+    )
   }
 
   writing() {
@@ -115,6 +126,17 @@ class ForemanGenerator extends Generator {
         )
         .join('\n') + '\n'
     )
+  }
+
+  install() {
+    const cwd = this.destinationRoot()
+    const execOptions = { cwd }
+
+    this.spawnSync('foreman', ['install'], execOptions)
+
+    if (this._foremanTools.has('lune')) {
+      this.spawnSync('lune', ['setup'], execOptions)
+    }
   }
 }
 
