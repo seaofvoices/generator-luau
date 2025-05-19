@@ -121,7 +121,7 @@ export default class LuauGenerator extends Generator {
         type: 'list',
         name: 'luaExtension',
         message: 'Choose Lua extension',
-        default: 'lua',
+        default: 'luau',
         choices: [
           { name: 'lua', value: 'lua' },
           { name: 'luau', value: 'luau' },

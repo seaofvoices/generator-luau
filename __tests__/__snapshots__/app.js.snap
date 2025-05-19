@@ -104,7 +104,7 @@ exports[`using npm creates the package.json file 1`] = `
     "luau",
   ],
   "license": "MIT",
-  "main": "src/init.lua",
+  "main": "src/init.luau",
   "name": "new-project",
   "repository": {
     "type": "git",
@@ -229,7 +229,7 @@ exports[`using yarn creates the package.json file 1`] = `
     "luau",
   ],
   "license": "MIT",
-  "main": "src/init.lua",
+  "main": "src/init.luau",
   "name": "new-project",
   "repository": {
     "type": "git",

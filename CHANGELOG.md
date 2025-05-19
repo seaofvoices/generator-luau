@@ -1,5 +1,6 @@
 # Changelog
 
+- change default file extension to `.luau` ([#41](https://github.com/seaofvoices/generator-luau/pull/41))
 - fix Roblox build script when using npm as the package manager ([#40](https://github.com/seaofvoices/generator-luau/pull/40))
 - upgrade generated github action versions (`setup-node`, `upload-artifact` and switch `setup-foreman` for `CompeyDev/setup-rokit`) ([#39](https://github.com/seaofvoices/generator-luau/pull/39))
 
