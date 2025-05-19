@@ -1,6 +1,10 @@
 import axios from 'axios'
 
-const VERSION_CACHE = {}
+const VERSION_CACHE = {
+  '@jsdotlua/jest': '3.10.0',
+  '@jsdotlua/jest-globals': '3.10.0',
+  npmluau: '0.1.2',
+}
 
 function fetchScopedPackageVersion(packageName) {
   const scope = packageName.substring(1, packageName.indexOf('/'))
