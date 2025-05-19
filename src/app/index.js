@@ -402,7 +402,10 @@ export default class LuauGenerator extends Generator {
 
       const INSTALL_PRODUCTION = {
         yarn: ['yarn workspaces focus --production', 'yarn dlx npmluau'],
-        npm: ['npm install --omit dev', 'npx npmluau'],
+        npm: [
+          'npm install --omit dev',
+          'npm exec --yes --package npmluau -- npmluau',
+        ],
       }
 
       this.fs.copyTpl(
