@@ -36,13 +36,18 @@ export const usePolly = (recordingName) => {
         recordingsDir: location,
       },
     },
-    recordIfMissing: true,
+    recordFailedRequests: false,
+    recordIfMissing: false,
+    matchRequestsBy: {
+      headers: false,
+      order: false,
+    },
   })
 
   polly.replay()
 
-  afterThis(() => {
-    polly.stop()
+  afterThis(async () => {
+    await polly.stop()
   })
 }
 

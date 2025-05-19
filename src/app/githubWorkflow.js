@@ -23,7 +23,7 @@ const buildProjectSetup = ({ packageManager }) => {
     })
   }
   steps.push({
-    uses: 'actions/setup-node@v3',
+    uses: 'actions/setup-node@v4',
     with: {
       'node-version': 'latest',
       'registry-url': 'https://registry.npmjs.org',
@@ -116,10 +116,7 @@ export const buildTestWorkflow = (options) => {
             uses: 'actions/checkout@v4',
           },
           {
-            uses: 'Roblox/setup-foreman@v1',
-            with: {
-              token: '${{ secrets.GITHUB_TOKEN }}',
-            },
+            uses: 'CompeyDev/setup-rokit@v0.1.2',
           },
           ...buildProjectSetup(options),
           {
@@ -199,10 +196,7 @@ export const buildReleaseWorkflow = (options) => {
       steps: [
         { uses: 'actions/checkout@v4' },
         {
-          uses: 'Roblox/setup-foreman@v1',
-          with: {
-            token: '${{ secrets.GITHUB_TOKEN }}',
-          },
+          uses: 'CompeyDev/setup-rokit@v0.1.2',
         },
         ...buildProjectSetup(options),
         {
@@ -211,7 +205,7 @@ export const buildReleaseWorkflow = (options) => {
         },
         {
           name: 'Upload asset',
-          uses: 'actions/upload-artifact@v3',
+          uses: 'actions/upload-artifact@v4',
           with: {
             name: '${{ matrix.artifact-name }}',
             path: '${{ matrix.path }}',

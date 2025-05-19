@@ -1,5 +1,7 @@
 # Changelog
 
+- upgrade generated github action versions (`setup-node`, `upload-artifact` and switch `setup-foreman` for `CompeyDev/setup-rokit`) ([#39](https://github.com/seaofvoices/generator-luau/pull/39))
+
 ## 0.1.5
 
 - add lune package aliases to configuration files ([#35](https://github.com/seaofvoices/generator-luau/pull/35))

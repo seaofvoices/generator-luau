@@ -5,7 +5,7 @@ exports[`using npm Lune environment creates a .luau-analyze.json file 1`] = `
   "luau-lsp.require.mode": "relativeToFile",
   "luau-lsp.require.directoryAliases": {
     "@pkg": "node_modules/.luau-aliases",
-    "@lune": "~/.lune/.typedefs/0.8.8/"
+    "@lune": "~/.lune/.typedefs/0.9.3/"
   }
 }
 "
@@ -20,7 +20,7 @@ exports[`using npm Lune environment creates a .luaurc file 1`] = `
   },
   "aliases": {
     "pkg": "./node_modules/.luau-aliases",
-    "lune": "~/.lune/.typedefs/0.8.8/"
+    "lune": "~/.lune/.typedefs/0.9.3/"
   }
 }
 "
@@ -130,7 +130,7 @@ exports[`using yarn Lune environment creates a .luau-analyze.json file 1`] = `
   "luau-lsp.require.mode": "relativeToFile",
   "luau-lsp.require.directoryAliases": {
     "@pkg": "node_modules/.luau-aliases",
-    "@lune": "~/.lune/.typedefs/0.8.8/"
+    "@lune": "~/.lune/.typedefs/0.9.3/"
   }
 }
 "
@@ -145,7 +145,7 @@ exports[`using yarn Lune environment creates a .luaurc file 1`] = `
   },
   "aliases": {
     "pkg": "./node_modules/.luau-aliases",
-    "lune": "~/.lune/.typedefs/0.8.8/"
+    "lune": "~/.lune/.typedefs/0.9.3/"
   }
 }
 "
