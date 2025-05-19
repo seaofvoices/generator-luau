@@ -30,6 +30,7 @@
     "format": "prettier src/**/*.js --write",
     "style-check": "prettier src/**/*.js --check",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "snap": "node --experimental-vm-modules node_modules/jest/bin/jest.js --updateSnapshot",
     "clean": "rm -rf node_modules"
   },
   "dependencies": {
