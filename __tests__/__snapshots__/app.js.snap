@@ -59,7 +59,7 @@ DARKLUA_CONFIG=$1
 BUILD_OUTPUT=$2
 
 npm install --omit dev
-npm exec --yes --package npmluau -- npmluau
+npx npmluau
 
 rm -rf temp
 mkdir -p temp
