@@ -280,37 +280,18 @@ export default class LuauGenerator extends Generator {
       },
     }
 
-    const luauAnalyzeConfig = {
-      'luau-lsp.require.mode': 'relativeToFile',
-      'luau-lsp.require.directoryAliases': {
-        '@pkg': 'node_modules/.luau-aliases',
-      },
-    }
-
     const luneVersion = this._foremanGenerator.toolVersions.lune
     if (luneVersion) {
       const luneAliasPath = `~/.lune/.typedefs/${luneVersion}/`
       luauConfig.aliases.lune = luneAliasPath
-      luauAnalyzeConfig['luau-lsp.require.directoryAliases']['@lune'] =
-        luneAliasPath
     }
 
     this.fs.writeJSON(this.destinationPath('.luaurc'), luauConfig)
-    this.fs.writeJSON(
-      this.destinationPath('.luau-analyze.json'),
-      luauAnalyzeConfig
-    )
 
     this.fs.writeJSON(this.destinationPath('.vscode/settings.json'), {
-      'luau-lsp.require.directoryAliases': {
-        '@pkg': 'node_modules/.luau-aliases',
-        // no need to write the alias for lune since it should be generated
-        // by the install step from the foreman generator
-      },
       'luau-lsp.sourcemap.autogenerate': false,
-      'luau-lsp.require.mode': 'relativeToFile',
       'luau-lsp.completion.imports.requireStyle': 'alwaysRelative',
-      'luau-lsp.types.roblox': isRobloxEnv,
+      'luau-lsp.platform.type': isRobloxEnv ? 'roblox' : 'standard',
     })
 
     const mainFolderName = useWorkspaces ? 'packages' : 'src'

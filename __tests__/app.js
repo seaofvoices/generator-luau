@@ -83,7 +83,7 @@ describe.each(['npm', 'yarn'])('using %s', (packageManager) => {
       answers.buildRobloxModel = true
     })
 
-    it.each(['build-roblox-model.sh', '.luau-analyze.json', '.luaurc'])(
+    it.each(['build-roblox-model.sh', '.luaurc'])(
       'creates a %s file',
       async (fileName) => {
         const context = await setupContext()
@@ -110,7 +110,7 @@ describe.each(['npm', 'yarn'])('using %s', (packageManager) => {
       answers.luaEnvironment = 'lune'
     })
 
-    it.each(['.luau-analyze.json', '.luaurc'])(
+    it.each(['.luaurc'])(
       'creates a %s file',
       async (fileName) => {
         const context = await setupContext()

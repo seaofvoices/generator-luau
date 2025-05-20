@@ -69,13 +69,13 @@ It is also possible that the generator has not implemented certain combination o
 ### Configuration files
 
 - a npm package with a `package.json`, a `.npmignore` (a `.yarnrc.yml` when using [yarn](https://yarnpkg.com/))
-- Luau related (`.luau` and `.luau-analyze.json`)
+- Luau related (`.luaurc`)
 - VS Code settings for [luau-lsp](https://github.com/JohnnyMorganz/luau-lsp)
 - [darklua](https://github.com/seaofvoices/darklua) configurations
 - commonly used repository files (`README.md`, `CODE_OF_CONDUCT.md`, `LICENSE.txt`, `CHANGELOG.md`)
 - [selene](https://github.com/Kampfkarren/selene) configuration (`selene.toml`) and an additional `selene_defs.yml` to support `require` calls with strings.
 - [StyLua](https://github.com/JohnnyMorganz/StyLua) configuration (`stylua.toml`) and `.styluaignore`
-- a `foreman.toml` to install necessary tools with [Foreman](https://github.com/Roblox/foreman)
+- a `foreman.toml` to install necessary tools with [Foreman](https://github.com/Roblox/foreman) or [Rokit](https://github.com/rojo-rbx/rokit)
 
 ### Scripts
 
