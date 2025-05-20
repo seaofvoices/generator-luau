@@ -11,7 +11,7 @@ const setupContext = async () =>
     .withAnswers(answers)
     .withSpawnMock(spawnMock)
 
-beforeEach(() => {
+beforeEach(async () => {
   spawnMock = jest.fn()
   answers = {
     name: 'Author Name',
@@ -23,7 +23,7 @@ beforeEach(() => {
     website: '',
   }
 
-  usePolly('all-tools-requests')
+  await usePolly('all-tools-requests')
 })
 
 describe.each(['npm', 'yarn'])('using %s', (packageManager) => {
