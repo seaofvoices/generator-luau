@@ -33,12 +33,7 @@ export const buildDarkluaConfig = (options) => ({
     'remove_spaces',
     {
       rule: 'convert_require',
-      current: {
-        name: 'path',
-        sources: {
-          '@pkg': 'node_modules/.luau-aliases',
-        },
-      },
+      current: 'path',
       target: {
         name: 'roblox',
         rojo_sourcemap: 'sourcemap.json',
@@ -51,12 +46,7 @@ export const buildDarkluaConfig = (options) => ({
 
 export const buildBundleDarkluaConfig = (options) => ({
   bundle: {
-    require_mode: {
-      name: 'path',
-      sources: {
-        '@pkg': 'node_modules/.luau-aliases',
-      },
-    },
+    require_mode: 'path',
   },
   rules: [
     'remove_types',
