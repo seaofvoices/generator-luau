@@ -19,8 +19,8 @@ beforeEach(() => {
 })
 
 describe('default tools', () => {
-  beforeEach(() => {
-    usePolly('default-tools-requests')
+  beforeEach(async () => {
+    await usePolly('default-tools-requests')
   })
 
   it('creates a foreman.toml', async () => {
@@ -55,7 +55,7 @@ describe('all tools', () => {
       'mantle',
     ]
 
-    usePolly('all-tools-requests')
+    await usePolly('all-tools-requests')
   })
 
   it('creates a foreman.toml', async () => {

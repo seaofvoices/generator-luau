@@ -3,8 +3,13 @@ import { afterThis } from 'jest-after-this'
 import { fileURLToPath } from 'url'
 import helpers from 'yeoman-test'
 import { Polly } from '@pollyjs/core'
+import FetchAdapter from '@pollyjs/adapter-fetch'
 import NodeHttpAdapter from '@pollyjs/adapter-node-http'
 import FSPersister from '@pollyjs/persister-fs'
+
+Polly.register(FetchAdapter)
+Polly.register(FSPersister)
+Polly.register(NodeHttpAdapter)
 
 export const getFileContent = (context, fileName) => {
   const snapshot = context.getSnapshot(
@@ -22,32 +27,36 @@ export const getFileContent = (context, fileName) => {
   return snapshotValues[0].contents
 }
 
-export const usePolly = (recordingName) => {
+let previousPolly = null
+
+export const usePolly = async (recordingName) => {
   const location = join(
     dirname(fileURLToPath(import.meta.url)),
     '__recordings__'
   )
 
+  if (previousPolly) {
+    await previousPolly.flush()
+    await previousPolly.stop()
+  }
+
   const polly = new Polly(recordingName, {
-    adapters: [NodeHttpAdapter],
-    persister: FSPersister,
-    persisterOptions: {
-      fs: {
-        recordingsDir: location,
-      },
-    },
+    adapters: ['node-http', 'fetch'],
+    mode: 'replay',
+    persister: 'fs',
+    persisterOptions: { fs: { recordingsDir: location } },
     recordFailedRequests: false,
     recordIfMissing: false,
-    matchRequestsBy: {
-      headers: false,
-      order: false,
-    },
+    matchRequestsBy: { headers: false, order: false },
   })
 
-  polly.replay()
+  previousPolly = polly
 
   afterThis(async () => {
     await polly.stop()
+    if (previousPolly === polly) {
+      previousPolly = null
+    }
   })
 }
 
