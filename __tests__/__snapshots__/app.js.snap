@@ -1,16 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`using npm Lune environment creates a .luau-analyze.json file 1`] = `
-"{
-  "luau-lsp.require.mode": "relativeToFile",
-  "luau-lsp.require.directoryAliases": {
-    "@pkg": "node_modules/.luau-aliases",
-    "@lune": "~/.lune/.typedefs/0.9.3/"
-  }
-}
-"
-`;
-
 exports[`using npm Lune environment creates a .luaurc file 1`] = `
 "{
   "languageMode": "strict",
@@ -21,16 +10,6 @@ exports[`using npm Lune environment creates a .luaurc file 1`] = `
   "aliases": {
     "pkg": "./node_modules/.luau-aliases",
     "lune": "~/.lune/.typedefs/0.9.3/"
-  }
-}
-"
-`;
-
-exports[`using npm Roblox environment creates a .luau-analyze.json file 1`] = `
-"{
-  "luau-lsp.require.mode": "relativeToFile",
-  "luau-lsp.require.directoryAliases": {
-    "@pkg": "node_modules/.luau-aliases"
   }
 }
 "
@@ -125,17 +104,6 @@ exports[`using npm creates the package.json file 1`] = `
 }
 `;
 
-exports[`using yarn Lune environment creates a .luau-analyze.json file 1`] = `
-"{
-  "luau-lsp.require.mode": "relativeToFile",
-  "luau-lsp.require.directoryAliases": {
-    "@pkg": "node_modules/.luau-aliases",
-    "@lune": "~/.lune/.typedefs/0.9.3/"
-  }
-}
-"
-`;
-
 exports[`using yarn Lune environment creates a .luaurc file 1`] = `
 "{
   "languageMode": "strict",
@@ -146,16 +114,6 @@ exports[`using yarn Lune environment creates a .luaurc file 1`] = `
   "aliases": {
     "pkg": "./node_modules/.luau-aliases",
     "lune": "~/.lune/.typedefs/0.9.3/"
-  }
-}
-"
-`;
-
-exports[`using yarn Roblox environment creates a .luau-analyze.json file 1`] = `
-"{
-  "luau-lsp.require.mode": "relativeToFile",
-  "luau-lsp.require.directoryAliases": {
-    "@pkg": "node_modules/.luau-aliases"
   }
 }
 "
