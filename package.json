@@ -51,6 +51,7 @@
     "@types/inquirer": "^9.0.9",
     "@yeoman/types": "^1.8.0",
     "eslint": "^9.36.0",
+    "globals": "^16.4.0",
     "jest": "^29.7.0",
     "jest-after-this": "^1.0.4",
     "rollup": "^4.52.3",
@@ -63,20 +64,6 @@
     "testPathIgnorePatterns": [
       "utils.js"
     ]
-  },
-  "eslintConfig": {
-    "extends": [
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "ecmaVersion": "latest",
-      "sourceType": "module"
-    },
-    "env": {
-      "jest": true,
-      "node": true,
-      "es6": true
-    }
   },
   "prettier": {
     "trailingComma": "es5",
