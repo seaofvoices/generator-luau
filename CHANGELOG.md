@@ -1,5 +1,7 @@
 # Changelog
 
+## 0.1.7
+
 - update npmignore template to exclude root level Roblox files, Rojo configs and sourcemaps and type Luau definition files ([#46](https://github.com/seaofvoices/generator-luau/pull/46))
 
 ## 0.1.6
