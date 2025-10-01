@@ -25,9 +25,13 @@
 jest.config.lua
 jest.config.luau
 
-**/*.rbxl
-**/*.rbxlx
-**/*.rbxl.lock
-**/*.rbxlx.lock
-**/*.rbxm
-**/*.rbxmx
+/globalTypes.d.lua
+sourcemap.json
+*.project.json
+
+*.rbxl
+*.rbxlx
+*.rbxl.lock
+*.rbxlx.lock
+*.rbxm
+*.rbxmx
